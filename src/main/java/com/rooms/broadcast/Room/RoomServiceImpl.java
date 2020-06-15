@@ -39,7 +39,7 @@ public class RoomServiceImpl implements RoomService {
     public Room getRoom(Long roomId) {
         Optional<Room> optionalRoom = roomRepository.findById(roomId);
         if(optionalRoom.isEmpty()){
-
+            throw new RoomNotFoundException(roomId);
         }
         return optionalRoom.get();
     }

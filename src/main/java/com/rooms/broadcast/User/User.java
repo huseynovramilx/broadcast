@@ -1,6 +1,7 @@
 package com.rooms.broadcast.User;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.rooms.broadcast.Room.Room;
 import org.springframework.context.annotation.Configuration;
@@ -22,7 +23,7 @@ public class User implements Serializable {
     private String username;
 
 
-    @JsonBackReference
+    @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "contacters_contacts",
             joinColumns = {
@@ -33,7 +34,7 @@ public class User implements Serializable {
                             nullable = false, updatable = false)})
     private Set<User> contacts = new HashSet<>();
 
-    @JsonManagedReference
+    @JsonIgnore
     @ManyToMany(mappedBy = "contacts",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<User> contacters = new HashSet<>();
 

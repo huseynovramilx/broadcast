@@ -4,7 +4,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Set;
 
-@RestController()
+@RestController
 public class UserController {
 
     private final UserService userService;
@@ -14,22 +14,27 @@ public class UserController {
     }
 
     @PostMapping("/users")
-    public User addUser(@RequestBody UserInput userInput){
-        return userService.addUser(userInput.getUserName());
+    User addUser(@RequestBody UserInput userInput){
+        return userService.addUser(userInput.getUsername());
     }
 
     @GetMapping("/users/{id}")
-    public User getUser(@PathVariable Long id){
+    User getUser(@PathVariable Long id){
         return userService.getUser(id);
     }
 
     @GetMapping("/users/{id}/contacts")
-    public Set<User> getContacts(@PathVariable Long id){
+    Set<User> getContacts(@PathVariable Long id){
         return userService.getContacts(id);
     }
 
+    @GetMapping("/users/{id}/contacters")
+    Set<User> getContacters(@PathVariable Long id){
+        return userService.getContacters(id);
+    }
+
     @PostMapping("/users/{id}/contacts")
-    public User addContact(@PathVariable Long id, @RequestBody ContactInput contactInput){
+    User addContact(@PathVariable Long id, @RequestBody ContactInput contactInput){
         return userService.addContact(id, contactInput.getContactId());
     }
 }

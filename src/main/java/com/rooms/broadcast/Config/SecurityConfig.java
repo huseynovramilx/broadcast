@@ -26,11 +26,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable().httpBasic()
-                .and().authorizeRequests(authorize -> authorize.antMatchers("/users/{id}/rooms")
-                .access("@webSecurity.existsInOwnersContacts(authentication, #id)"))
-                .authorizeRequests(authorize -> authorize
-                        .antMatchers("/rooms/{roomId}")
-                        .access("@webSecurity.isContactersRoom(authentication, #roomId)"))
+                .and().authorizeRequests(authorize -> authorize
+                .antMatchers("/rooms/{roomId}")
+                .access("@webSecurity.isContactersRoom(authentication, #roomId)"))
                 .authorizeRequests().anyRequest().permitAll().and().formLogin();
 
     }

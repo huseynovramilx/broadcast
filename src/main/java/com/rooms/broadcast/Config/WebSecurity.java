@@ -21,7 +21,15 @@ public class WebSecurity {
         this.roomService = roomService;
     }
 
-    public boolean existsInOwnersContacts(Authentication authentication, Long ownerId){
+    public boolean isOwner(Authentication authentication, Long ownerId){
+        String ownerUsername = userService.getUser(ownerId).getUsername();
+        return authentication.getName().equals(ownerUsername);
+    }
+
+    public boolean existsInOwnersContactsOrIsOwner(Authentication authentication, Long ownerId){
+        if(isOwner(authentication, ownerId)){
+            return true;
+        }
         return userService.existsInUserContacts(ownerId, authentication.getName());
     }
 

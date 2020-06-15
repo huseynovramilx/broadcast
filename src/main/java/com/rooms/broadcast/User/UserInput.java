@@ -3,20 +3,20 @@ package com.rooms.broadcast.User;
 import java.io.Serializable;
 
 public class UserInput implements Serializable {
-    private String userName;
+    private String username;
 
     public UserInput() {
     }
 
-    public UserInput(String userName) {
-        this.userName = userName;
+    public UserInput(String username) {
+        this.username = username;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String userName) {
+        this.username = userName;
     }
 }

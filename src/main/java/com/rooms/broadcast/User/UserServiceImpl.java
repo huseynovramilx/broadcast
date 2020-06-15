@@ -1,9 +1,9 @@
 package com.rooms.broadcast.User;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import com.rooms.broadcast.User.Exceptions.UserAlreadyExistsException;
+import com.rooms.broadcast.User.Exceptions.UserNotFoundException;
 import org.springframework.stereotype.Component;
 
-import javax.swing.text.html.Option;
 import java.util.Optional;
 import java.util.Set;
 @Component
@@ -16,8 +16,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User addUser(String userName) {
-        User user = new User(userName);
+    public User addUser(String username) {
+        Optional<User> optionalUser = userRepository.findUserByUsername(username);
+        if(optionalUser.isPresent()){
+            throw new UserAlreadyExistsException(username);
+        }
+        User user = new User(username);
         return userRepository.save(user);
     }
 
@@ -25,19 +29,11 @@ public class UserServiceImpl implements UserService {
     public User getUser(Long userId)  {
        Optional<User> optionalUser  = userRepository.findById(userId);
        if(optionalUser.isEmpty()){
-
+           throw new UserNotFoundException(userId);
        }
        return optionalUser.get();
     }
 
-    @Override
-    public User getUserByUsername(String username) {
-        Optional<User> optionalUser = userRepository.findUserByUsername(username);
-        if(optionalUser.isEmpty()){
-
-        }
-        return optionalUser.get();
-    }
 
     @Override
     public Set<User> getContacts(Long userId) {
@@ -67,14 +63,6 @@ public class UserServiceImpl implements UserService {
             return false;
         }
         return userRepository.existsUserByIdAndContactsIsContaining(ownerId, optionalContact.get());
-    }
-
-    @Override
-    public void removeContact(Long userId, Long contactId) {
-        User user = getUser(userId);
-        User contact = getUser(contactId);
-        user.removeContact(contact);
-        userRepository.save(user);
     }
 
     @Override
