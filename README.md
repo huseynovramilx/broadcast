@@ -19,7 +19,7 @@ _If you change **'username'** and **'password'** in the above code, make sure to
 Run the following lines in commmand prompt with directory set to this project.
 ```
 mvnw clean package
-java -jar target/energy-consumption-0.0.1-SNAPSHOT.jar
+java -jar target/broadcast-0.0.1-SNAPSHOT.jar
 ```
 
 ## (Optional) You can fill the database with fake data
