@@ -144,3 +144,9 @@ Content-type: application/json
     }
 ]
 ```
+
+## For testing broadcast in public room
+# Go to localhost:8080/rooms/public/{roomId}
+
+## For testing broadcast in private room
+# Go to localhost:8080/rooms/private/{roomId}
